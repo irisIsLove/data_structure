@@ -73,7 +73,7 @@ public:
 
     /// @brief 判断线性表中第一个e满足funcCompare的元组的位置
     /// @param e 输入元素
-    /// @param funcCompare 比较函数，默认是比较是否相等
+    /// @param funcCompare 比较函数，默认是比较是否相等 函数类型：bool(const T&, const T&)
     /// @return 若元素存在返回索引，若不存在返回0
     size_t locateElem(const T& e, const Compare<T>& funcCompare = selfCompare<T>)
     {
@@ -154,7 +154,7 @@ public:
     }
 
     /// @brief 通过funcVisit遍历线性表
-    /// @param funcVisit
+    /// @param funcVisit为遍历函数 函数类型为 void(SqList<T>*)
     void traverse(const Visit<T>& funcVisit = selfVisit<T>)
     {
         funcVisit(this);
