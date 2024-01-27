@@ -18,7 +18,7 @@ using Visit = std::function<void(SqList<T>*)>;
 
 template <typename T>
 Visit<T> selfVisit = [](SqList<T>* self) {
-    for (size_t i = 0; i < self->size(); ++i)
+    for (auto i = 0; i < self->size(); ++i)
     {
         std::cout << self->getElem(i + 1) << ' ';
     }
@@ -78,7 +78,7 @@ public:
     size_t locateElem(const T& e, const Compare<T>& funcCompare = selfCompare<T>)
     {
         assert((_nSize > 0) && "Error: List is empty!");
-        for (int i = 0; i < _nSize; ++i)
+        for (auto i = 0; i < _nSize; ++i)
         {
             if (funcCompare(e, _pElems[i]))
             {
@@ -95,7 +95,7 @@ public:
     {
         assert((_nSize > 0) && "Error: List is empty!");
         assert((locateElem(curElem) != 1) && "Error: The first element have no prior element!");
-        size_t nCurIndex = locateElem(curElem);
+        auto nCurIndex = locateElem(curElem);
         return getElem(nCurIndex - 1);
     }
 
@@ -106,7 +106,7 @@ public:
     {
         assert((_nSize > 0) && "Error: List is empty!");
         assert((locateElem(curElem) != _nSize) && "Error: The last element have no next element!");
-        size_t nCurIndex = locateElem(curElem);
+        auto nCurIndex = locateElem(curElem);
         return getElem(nCurIndex + 1);
     }
 
@@ -118,10 +118,10 @@ public:
         assert((index > 0 && index <= _nSize + 1) && "Error: Index is out of range!");
         if (_nSize == _nCapacity)
         {
-            size_t nNewCapacity = _nCapacity + LIST_INCRESEMENT;
+            auto nNewCapacity = _nCapacity + LIST_INCRESEMENT;
             T* pNewElems = new T[nNewCapacity];
             assert((pNewElems != nullptr) && "Error: Memory allocate failed!");
-            for (int i = 0; i < _nSize; ++i)
+            for (auto i = 0; i < _nSize; ++i)
             {
                 pNewElems[i] = _pElems[i];
             }
@@ -130,7 +130,7 @@ public:
             _nCapacity = nNewCapacity;
         }
 
-        for (size_t i = _nSize; i > index; --i)
+        for (auto i = _nSize; i > index; --i)
         {
             _pElems[i] = _pElems[i - 1];
         }
@@ -146,7 +146,7 @@ public:
         assert((index > 0 && index <= _nSize) && "Error: Index is out of range!");
         T result = _pElems[index - 1];
         --_nSize;
-        for (size_t i = index - 1; i < _nSize; ++i)
+        for (auto i = index - 1; i < _nSize; ++i)
         {
             _pElems[i] = _pElems[i + 1];
         }
