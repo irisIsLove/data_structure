@@ -22,5 +22,21 @@ int main()
     std::cout << "Delete the element 55" << '\n';
     list.deleteElem(index);
     list.traverse();
+
+    SqList<double> list1, list2, list3;
+    for (auto i = 0; i < 5; ++i)
+    {
+        list1.insertElem(i + 1, static_cast<double>(i));
+        list2.insertElem(i + 1, static_cast<double>(i) + 5.0);
+    }
+    std::cout << "List1: ";
+    list1.traverse();
+    std::cout << "List2: ";
+    list2.traverse();
+
+    std::cout << "Merge list1 and list2: ";
+
+    SqList<double>::merge(list1, list2, list3);
+    list3.traverse();
     std::cout << "\nSqList test end!\n";
 }
