@@ -11,19 +11,7 @@ template <typename T>
 using Compare = std::function<bool(const T&, const T&)>;
 
 template <typename T>
-Compare<T> selfCompare = [](const T& e1, const T& e2) { return e1 == e2; };
-
-template <typename T>
 using Visit = std::function<void(SqList<T>*)>;
-
-template <typename T>
-Visit<T> selfVisit = [](SqList<T>* self) {
-    for (auto i = 0; i < self->size(); ++i)
-    {
-        std::cout << self->getElem(i + 1) << ' ';
-    }
-    std::cout << '\n';
-};
 
 template <typename T>
 class SqList
@@ -38,7 +26,7 @@ public:
     SqList()
         : _pElems(new T[LIST_INIT_SIZE])
         , _nCapacity(LIST_INIT_SIZE)
-        , _nSize(0){};
+        , _nSize(0) {}
 
     ~SqList() { delete[] _pElems; }
 
@@ -50,10 +38,7 @@ public:
 
     /// @brief 判断线性表是否为空
     /// @return 为空返回true，反之返回false
-    bool isEmpty()
-    {
-        return _nSize == 0 ? true : false;
-    }
+    bool isEmpty() { return _nSize == 0; }
 
     /// @brief
     /// @return 返回线性表大小
@@ -65,7 +50,7 @@ public:
     /// @brief
     /// @param index 索引值
     /// @return 返回索引值为第i个元素的引用
-    T getElem(size_t index) const
+    T& getElem(size_t index) const
     {
         assert(((index > 0 && index <= _nSize) && _pElems != nullptr) && "Error: out of range!");
         return _pElems[index - 1];
@@ -91,7 +76,7 @@ public:
     /// @brief
     /// @param curElem 当前元素，不能为第一个元素
     /// @return 返回当前元素的前一个元素
-    T priorElem(const T& curElem)
+    T& priorElem(const T& curElem)
     {
         assert((_nSize > 0) && "Error: List is empty!");
         assert((locateElem(curElem) != 1) && "Error: The first element have no prior element!");
@@ -102,7 +87,7 @@ public:
     /// @brief
     /// @param curElem 当前元素，不能为最后一个元素
     /// @return 返回当前元素的后一个元素
-    T nextElem(const T& curElem)
+    T& nextElem(const T& curElem)
     {
         assert((_nSize > 0) && "Error: List is empty!");
         assert((locateElem(curElem) != _nSize) && "Error: The last element have no next element!");
@@ -161,9 +146,9 @@ public:
     }
 
     /// @brief 合并两个列表，合并的两个列表应为非递减排列的
-    /// @param l1 输入的第一个列表
-    /// @param l2 输入的第二个列表
-    /// @param l3 输出的列表
+    /// @param listInput1 输入的第一个列表
+    /// @param listInput2 输入的第二个列表
+    /// @param listOutput 输出的列表
     static void merge(const SqList<T>& listInput1, const SqList<T>& listInput2, SqList<T>& listOutput)
     {
         std::cout << "\nUse this function to ensure that the two lists are non-decreasing.\n";
@@ -207,4 +192,16 @@ private:
     T* _pElems;
     size_t _nCapacity;
     size_t _nSize;
+};
+
+template <typename T>
+Compare<T> selfCompare = [](const T& e1, const T& e2) { return e1 == e2; };
+
+template <typename T>
+Visit<T> selfVisit = [](SqList<T>* self) {
+    for (auto i = 0; i < self->size(); ++i)
+    {
+        std::cout << self->getElem(i + 1) << ' ';
+    }
+    std::cout << '\n';
 };

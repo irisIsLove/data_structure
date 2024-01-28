@@ -6,3 +6,4 @@ add_library(project_compile_flags INTERFACE)
 target_compile_features(project_compile_flags INTERFACE cxx_std_11)
 
 add_subdirectory(SqList)
+add_subdirectory(LinkList)
